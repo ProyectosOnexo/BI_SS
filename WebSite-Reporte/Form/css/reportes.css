@@ -1,0 +1,17 @@
+﻿body {
+    background-image: url('../../Form/img/importedmedia.jpg');
+    background-color: grey;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #ffffff;
+    background-color: dodgerblue; /* add background-color to active links */
+}
+
+.reportesT {
+    margin-right: 30px;
+}

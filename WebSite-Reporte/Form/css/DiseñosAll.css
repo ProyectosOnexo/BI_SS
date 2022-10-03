@@ -1,0 +1,101 @@
+﻿.ColorBorde {
+    border-color: #6db23f;
+    border-style: solid;
+}
+
+.BordeRadious {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+@font-face {
+    font-family: 'AvenirNextLTPro-Bold-Actual';
+    src: url('AvenirNextLTPro-Bold.otf') format('opentype');
+}
+
+
+@font-face {
+    font-family: Galaxi;
+    src: url(GalaxieCassiopeiaBasicBold.otf);
+}
+
+@font-face {
+    font-family: Droid;
+    src: url(droid-sans_[allfont.es].ttf);
+}
+
+.TipodeLetraGalaxi {
+    font-family: Galaxi;
+}
+
+.TipodeLetraDroid {
+    font-family: Droid;
+}
+
+.BackColor#6DB23F {
+    background-color: #6DB23F;
+}
+
+.ForeColo606060 {
+    color: #606060;
+}
+
+.ForeColor939393 {
+    color: #909090;
+}
+
+.ForeColor6DB23F {
+    color: #6DB23F;
+}
+
+.TamañoDesboardLabel {
+    font-size: 23px;
+}
+
+.form-control-feedback {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+}
+
+.form-control {
+    padding-left: 40px !important;
+}
+
+.form-control:focus {
+    border-color: #6db23f !important;
+    box-shadow: 0 0 5px rgba(109, 178, 63, 1) !important;
+}
+
+.GridView1{
+    border-radius: 3px 4px;
+}
+
+.ItemsGrid {
+    color: #6db23f;
+    margin-right: 30px;
+    font: bold;
+}
+
+.ItemsGrid:hover {
+    color: #6db23f;
+}
+
+.TextBoxEdit{
+    border: 1px solid #6db23f;
+    border-radius: 3px 4px;
+}
+
+.TextBoxEdit:focus {
+    border-color: #6db23f !important;
+    box-shadow: 0 0 5px rgba(109, 178, 63, 1) !important;
+}
+
+.ToolBarBackground {
+    display: block !important;
+}
+
+.WidgetSet {
+    display: block !important;
+    float: left !important;
+}

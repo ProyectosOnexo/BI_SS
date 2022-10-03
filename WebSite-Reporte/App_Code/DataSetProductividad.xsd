@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSetProductividad" targetNamespace="http://tempuri.org/DataSetProductividad.xsd" xmlns:mstns="http://tempuri.org/DataSetProductividad.xsd" xmlns="http://tempuri.org/DataSetProductividad.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="1" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="BdModiConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="BdModiConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.BdModiConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ReportesConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ReportesConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ReportesConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable3TableAdapter" GeneratorDataComponentClassName="DataTable3TableAdapter" Name="DataTable3" UserDataComponentName="DataTable3TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ReportesConnectionString (Web.config)" DbObjectName="SELECT TIENDA,ISNULL(MILISEGUNDOS, 0) AS MILISEGUNDOS, CASE WHEN Promedio = '::' THEN '00:00:00' ELSE CONVERT(VARCHAR(15),CONVERT(datetime, Promedio),114) END AS TIEMPO FROM ( SELECT Tienda, MILISEGUNDOS, CAST(Horas AS varchar(10))+Signo+ CAST(Minutos AS varchar(10))+Signo+ CAST(Segundos AS varchar(10)) AS Promedio FROM ( SELECT a2 AS TIENDA,a1 AS MILISEGUNDOS, CASE WHEN a1/(1000*60*60) &gt; 10 THEN +'0'+ a1/(1000*60*60) ELSE + '0' + a1/(1000*60*60) END AS Horas, CASE WHEN (a1)%(1000*60*60)/(1000*60) &gt; 10 THEN (a1)%(1000*60*60)/(1000*60) ELSE + '0' + (a1)%(1000*60*60)/(1000*60) END AS Minutos, CASE WHEN ((a1%(1000*60*60))%(1000*60))/1000 &gt; 10 THEN ((a1%(1000*60*60))%(1000*60))/1000 ELSE + '0' + ((a1%(1000*60*60))%(1000*60))/1000 END AS Segundos , ':' AS Signo FROM ( SELECT AVG(diferencia) a1, TIENDA a2 FROM( SELECT mlocal.nombre AS TIENDA, hora AS INICIO, hora_bump AS FINAL, DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),hora,114),CONVERT(VARCHAR(15),hora_bump,114) ) diferencia FROM hctaord INNER JOIN mlocal ON hctaord.id_local = mlocal.id_local WHERE DATEADD(day, DATEDIFF(dd, 0,hora), 0) = @Fecha AND hctaord.id_local IN (SELECT id_local FROM mlocal WHERE id_local = @idSucursal) OR hctaord.id_local IN (SELECT b.idLocal FROM relacionSucursalUsuario a JOIN RelacionGrupoSucursal b ON a.id_local = b.idGrupo WHERE a.id_usuario = @idUsuario ) OR (hctaord.id_local IN (SELECT id_local FROM mlocal WHERE nombre NOT LIKE '%trial%' AND id_local &gt;= 750) AND @idSucursal=0 AND (SELECT rol FROM usuarios WHERE id = @idUsuario)='superusuario') )t1 GROUP BY TIENDA )t2 )t3 )t4" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT TIENDA, MILISEGUNDOS, TIEMPO, 
+	CASE 
+		WHEN TIEMPO &gt;=  '00:00:00' AND TIEMPO &lt;= '00:07:00' THEN '1'
+		WHEN TIEMPO &gt;= '00:07:00' AND TIEMPO &lt;= '00:10:00' THEN '2'
+		WHEN TIEMPO &gt;= '00:10:00' THEN '3'
+	END AS TIPOCOLOR
+FROM(
+	Select TIENDA,ISNULL(MILISEGUNDOS, 0) AS MILISEGUNDOS, 
+	CASE WHEN Promedio = '::' THEN '00:00:00' ELSE CONVERT(VARCHAR(15),CONVERT(datetime, Promedio),114)
+	END AS TIEMPO
+	From (
+		select Tienda, MILISEGUNDOS,
+			cast(Horas as varchar(10))+Signo+ cast(Minutos as varchar(10))+Signo+ cast(Segundos as varchar(10)) AS Promedio
+		from
+		(
+			select a2 AS TIENDA,a1 AS MILISEGUNDOS,
+			  CASE
+				WHEN a1/(1000*60*60) &gt; 10 THEN +'0'+ a1/(1000*60*60) ELSE + '0' + a1/(1000*60*60)
+			  END AS Horas,
+
+			  CASE
+				WHEN (a1)%(1000*60*60)/(1000*60) &gt; 10 THEN (a1)%(1000*60*60)/(1000*60)  ELSE + '0' + (a1)%(1000*60*60)/(1000*60)
+			  END AS Minutos,
+
+			  CASE
+				WHEN ((a1%(1000*60*60))%(1000*60))/1000 &gt; 10 THEN ((a1%(1000*60*60))%(1000*60))/1000 ELSE + '0' + ((a1%(1000*60*60))%(1000*60))/1000
+			  END AS Segundos
+
+			  , ':' As Signo 
+			from (
+				select
+				AVG(diferencia) a1, TIENDA a2
+				from(
+					SELECT mlocal.nombre AS TIENDA, hora AS INICIO, hora_bump AS FINAL, 
+					DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),hora,114),CONVERT(VARCHAR(15),hora_bump,114) ) diferencia
+					FROM  hctaord
+					INNER JOIN mlocal ON hctaord.id_local = mlocal.id_local
+
+					WHERE DATEADD(day, DATEDIFF(dd, 0,hora), 0) = @Fecha AND  hctaord.id_local in (select id_local from mlocal where id_local = @idSucursal) 
+				 or  hctaord.id_local in  (select b.idLocal from relacionSucursalUsuario a join RelacionGrupoSucursal b on a.id_local = b.idGrupo 
+				 where a.id_usuario = @idUsuario ) 
+				 or (hctaord.id_local in (select id_local from mlocal where nombre not like '%trial%' and id_local &gt;= 750) and @idSucursal=0 and (select rol from usuarios where id = @idUsuario)='superusuario')
+				)t1
+				GROUP BY TIENDA
+			)t2
+		)t3
+	)t4
+)T5</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="Fecha" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@Fecha" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="idSucursal" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="AnsiString" Direction="Input" ParameterName="@idSucursal" Precision="0" Scale="0" Size="1024" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="idUsuario" ColumnName="" DataSourceName="" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@idUsuario" Precision="0" Scale="0" Size="4" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="MILISEGUNDOS" DataSetColumn="MILISEGUNDOS" />
+              <Mapping SourceColumn="TIPOCOLOR" DataSetColumn="TIPOCOLOR" />
+              <Mapping SourceColumn="TIENDA" DataSetColumn="TIENDA" />
+              <Mapping SourceColumn="TIEMPO" DataSetColumn="TIEMPO" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable2TableAdapter" GeneratorDataComponentClassName="DataTable2TableAdapter" Name="DataTable2" UserDataComponentName="DataTable2TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ReportesConnectionString (Web.config)" DbObjectName="SELECT TIENDA,ISNULL(MILISEGUNDOS, 0) AS MILISEGUNDOS, CASE WHEN Promedio = '::' THEN '00:00:00' ELSE CONVERT(VARCHAR(15),CONVERT(datetime, Promedio),114) END AS TIEMPO FROM ( SELECT Tienda, MILISEGUNDOS, CAST(Horas AS varchar(10))+Signo+ CAST(Minutos AS varchar(10))+Signo+ CAST(Segundos AS varchar(10)) AS Promedio FROM ( SELECT a2 AS TIENDA,a1 AS MILISEGUNDOS, CASE WHEN a1/(1000*60*60) &gt; 10 THEN +'0'+ a1/(1000*60*60) ELSE + '0' + a1/(1000*60*60) END AS Horas, CASE WHEN (a1)%(1000*60*60)/(1000*60) &gt; 10 THEN (a1)%(1000*60*60)/(1000*60) ELSE + '0' + (a1)%(1000*60*60)/(1000*60) END AS Minutos, CASE WHEN ((a1%(1000*60*60))%(1000*60))/1000 &gt; 10 THEN ((a1%(1000*60*60))%(1000*60))/1000 ELSE + '0' + ((a1%(1000*60*60))%(1000*60))/1000 END AS Segundos , ':' AS Signo FROM ( SELECT AVG(diferencia2) a1, TIENDA a2 FROM( SELECT mlocal.nombre AS TIENDA, hcta.fecha_apertura AS INICIO, hcta.hora_bump AS FINAL, DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) ) diferencia2 FROM hcta INNER JOIN mlocal ON hcta.id_local = mlocal.id_local WHERE DATEADD(day, DATEDIFF(dd, 0,fecha_apertura), 0) = @Fecha AND hcta.id_local IN (SELECT id_local FROM mlocal WHERE id_local = @idSucursal) OR hcta.id_local IN (SELECT b.idLocal FROM relacionSucursalUsuario a JOIN RelacionGrupoSucursal b ON a.id_local = b.idGrupo WHERE a.id_usuario = @idUsuario ) OR (hcta.id_local IN (SELECT id_local FROM mlocal WHERE nombre NOT LIKE '%trial%' AND id_local &gt;= 750) AND @idSucursal=0 AND (SELECT rol FROM usuarios WHERE id = @idUsuario)='superusuario') )t1 GROUP BY TIENDA )t2 )t3 )t4" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT TIENDA, MILISEGUNDOS, TIEMPO, 
+	CASE 
+		WHEN TIEMPO &gt;=  '00:00:00' AND TIEMPO &lt;= '00:07:00' THEN '1'
+		WHEN TIEMPO &gt;= '00:07:00' AND TIEMPO &lt;= '00:10:00' THEN '2'
+		WHEN TIEMPO &gt;= '00:10:00' THEN '3'
+	END AS TIPOCOLOR
+FROM(
+	Select TIENDA,ISNULL(MILISEGUNDOS, 0) AS MILISEGUNDOS, 
+	CASE WHEN Promedio = '::' THEN '00:00:00' ELSE CONVERT(VARCHAR(15),CONVERT(datetime, Promedio),114)
+	END AS TIEMPO
+	From (
+		select Tienda, MILISEGUNDOS,
+			cast(Horas as varchar(10))+Signo+ cast(Minutos as varchar(10))+Signo+ cast(Segundos as varchar(10)) AS Promedio
+		from
+		(
+			select a2 AS TIENDA,a1 AS MILISEGUNDOS,
+			  CASE
+				WHEN a1/(1000*60*60) &gt; 10 THEN +'0'+ a1/(1000*60*60) ELSE + '0' + a1/(1000*60*60)
+			  END AS Horas,
+
+			  CASE
+				WHEN (a1)%(1000*60*60)/(1000*60) &gt; 10 THEN (a1)%(1000*60*60)/(1000*60)  ELSE + '0' + (a1)%(1000*60*60)/(1000*60)
+			  END AS Minutos,
+
+			  CASE
+				WHEN ((a1%(1000*60*60))%(1000*60))/1000 &gt; 10 THEN ((a1%(1000*60*60))%(1000*60))/1000 ELSE + '0' + ((a1%(1000*60*60))%(1000*60))/1000
+			  END AS Segundos
+
+			  , ':' As Signo 
+			from (
+				select
+				AVG(diferencia2) a1, TIENDA a2
+				from(
+					SELECT mlocal.nombre AS TIENDA, hcta.fecha_apertura AS INICIO, hcta.hora_bump AS FINAL, 
+					DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) ) diferencia2
+					FROM  hcta
+					INNER JOIN mlocal ON hcta.id_local = mlocal.id_local
+					WHERE DATEADD(day, DATEDIFF(dd, 0,fecha_apertura), 0) = @Fecha AND hcta.id_local in (select id_local from mlocal where id_local = @idSucursal) 
+				 or  hcta.id_local in  (select b.idLocal from relacionSucursalUsuario a join RelacionGrupoSucursal b on a.id_local = b.idGrupo 
+				 where a.id_usuario = @idUsuario ) 
+				 or (hcta.id_local in (select id_local from mlocal where nombre not like '%trial%'  and id_local &gt;= 750) and @idSucursal=0 and (select rol from usuarios where id = @idUsuario)='superusuario')
+				)t1
+				GROUP BY TIENDA
+			)t2
+		)t3
+	)t4
+)T5</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="Fecha" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@Fecha" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="idSucursal" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="AnsiString" Direction="Input" ParameterName="@idSucursal" Precision="0" Scale="0" Size="1024" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="idUsuario" ColumnName="" DataSourceName="" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@idUsuario" Precision="0" Scale="0" Size="4" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="MILISEGUNDOS" DataSetColumn="MILISEGUNDOS" />
+              <Mapping SourceColumn="TIPOCOLOR" DataSetColumn="TIPOCOLOR" />
+              <Mapping SourceColumn="TIENDA" DataSetColumn="TIENDA" />
+              <Mapping SourceColumn="TIEMPO" DataSetColumn="TIEMPO" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ReportesConnectionString (Web.config)" DbObjectName="SELECT TIENDA,ISNULL(MILISEGUNDOS, 0) AS MILISEGUNDOS, CASE WHEN Promedio = '::' THEN '00:00:00' ELSE CONVERT(VARCHAR(15),CONVERT(datetime, Promedio),114) END AS TIEMPO FROM ( SELECT Tienda, MILISEGUNDOS, CAST(Horas AS varchar(10))+Signo+ CAST(Minutos AS varchar(10))+Signo+ CAST(Segundos AS varchar(10)) AS Promedio FROM ( SELECT a2 AS TIENDA,a1 AS MILISEGUNDOS, CASE WHEN a1/(1000*60*60) &gt; 10 THEN +'0'+ a1/(1000*60*60) ELSE + '0' + a1/(1000*60*60) END AS Horas, CASE WHEN (a1)%(1000*60*60)/(1000*60) &gt; 10 THEN (a1)%(1000*60*60)/(1000*60) ELSE + '0' + (a1)%(1000*60*60)/(1000*60) END AS Minutos, CASE WHEN ((a1%(1000*60*60))%(1000*60))/1000 &gt; 10 THEN ((a1%(1000*60*60))%(1000*60))/1000 ELSE + '0' + ((a1%(1000*60*60))%(1000*60))/1000 END AS Segundos , ':' AS Signo FROM ( SELECT AVG(diferencia2) a1, TIENDA a2 FROM( SELECT mlocal.nombre AS TIENDA, hcta.fecha_cierre AS INICIO, hcta.hora_bump AS FINAL, DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) ) diferencia2 FROM hcta INNER JOIN mlocal ON hcta.id_local = mlocal.id_local WHERE DATEADD(day, DATEDIFF(dd, 0,fecha_apertura), 0) = @Fecha AND hcta.id_local IN (SELECT id_local FROM mlocal WHERE id_local = @idSucursal) OR hcta.id_local IN (SELECT b.idLocal FROM relacionSucursalUsuario a JOIN RelacionGrupoSucursal b ON a.id_local = b.idGrupo WHERE a.id_usuario = @idUsuario ) OR (hcta.id_local IN (SELECT id_local FROM mlocal WHERE nombre NOT LIKE '%trial%' AND id_local &gt;= 750) AND @idSucursal=0 AND (SELECT rol FROM usuarios WHERE id = @idUsuario)='superusuario') )t1 GROUP BY TIENDA )t2 )t3 )t4" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT TIENDA, MILISEGUNDOS, TIEMPO, 
+	CASE 
+		WHEN TIEMPO &gt;=  '00:00:00' AND TIEMPO &lt;= '00:07:00' THEN '1'
+		WHEN TIEMPO &gt;= '00:07:00' AND TIEMPO &lt;= '00:10:00' THEN '2'
+		WHEN TIEMPO &gt;= '00:10:00' THEN '3'
+	END AS TIPOCOLOR
+FROM(
+	Select TIENDA,ISNULL(MILISEGUNDOS, 0) AS MILISEGUNDOS, 
+	CASE WHEN Promedio = '::' THEN '00:00:00' ELSE CONVERT(VARCHAR(15),CONVERT(datetime, Promedio),114)
+	END AS TIEMPO
+	From (
+		select Tienda, MILISEGUNDOS,
+			cast(Horas as varchar(10))+Signo+ cast(Minutos as varchar(10))+Signo+ cast(Segundos as varchar(10)) AS Promedio
+		from
+		(
+			select a2 AS TIENDA,a1 AS MILISEGUNDOS,
+			  CASE
+				WHEN a1/(1000*60*60) &gt; 10 THEN +'0'+ a1/(1000*60*60) ELSE + '0' + a1/(1000*60*60)
+			  END AS Horas,
+
+			  CASE
+				WHEN (a1)%(1000*60*60)/(1000*60) &gt; 10 THEN (a1)%(1000*60*60)/(1000*60)  ELSE + '0' + (a1)%(1000*60*60)/(1000*60)
+			  END AS Minutos,
+
+			  CASE
+				WHEN ((a1%(1000*60*60))%(1000*60))/1000 &gt; 10 THEN ((a1%(1000*60*60))%(1000*60))/1000 ELSE + '0' + ((a1%(1000*60*60))%(1000*60))/1000
+			  END AS Segundos
+
+			  , ':' As Signo 
+			from (
+				select
+				AVG(diferencia2) a1, TIENDA a2
+				from(
+					SELECT mlocal.nombre AS TIENDA, hcta.fecha_cierre AS INICIO, hcta.hora_bump AS FINAL, 
+					DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) ) diferencia2
+					FROM  hcta
+					INNER JOIN mlocal ON hcta.id_local = mlocal.id_local
+					WHERE DATEADD(day, DATEDIFF(dd, 0,fecha_apertura), 0) = @Fecha AND hcta.id_local in (select id_local from mlocal where id_local = @idSucursal) 
+				 or  hcta.id_local in  (select b.idLocal from relacionSucursalUsuario a join RelacionGrupoSucursal b on a.id_local = b.idGrupo 
+				 where a.id_usuario = @idUsuario ) 
+				 or (hcta.id_local in (select id_local from mlocal where nombre not like '%trial%' and id_local &gt;= 750) and @idSucursal=0 and (select rol from usuarios where id = @idUsuario)='superusuario')
+				)t1
+				GROUP BY TIENDA
+			)t2
+		)t3
+	)t4
+)T5</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="Fecha" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@Fecha" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="idSucursal" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="AnsiString" Direction="Input" ParameterName="@idSucursal" Precision="0" Scale="0" Size="1024" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="idUsuario" ColumnName="" DataSourceName="" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@idUsuario" Precision="0" Scale="0" Size="4" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="MILISEGUNDOS" DataSetColumn="MILISEGUNDOS" />
+              <Mapping SourceColumn="TIPOCOLOR" DataSetColumn="TIPOCOLOR" />
+              <Mapping SourceColumn="TIENDA" DataSetColumn="TIENDA" />
+              <Mapping SourceColumn="TIEMPO" DataSetColumn="TIEMPO" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSetProductividad" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="DataSetProductividad" msprop:Generator_UserDSName="DataSetProductividad">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable3" msprop:Generator_TableClassName="DataTable3DataTable" msprop:Generator_TableVarName="tableDataTable3" msprop:Generator_RowChangedName="DataTable3RowChanged" msprop:Generator_TablePropName="DataTable3" msprop:Generator_RowDeletingName="DataTable3RowDeleting" msprop:Generator_RowChangingName="DataTable3RowChanging" msprop:Generator_RowEvHandlerName="DataTable3RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable3RowDeleted" msprop:Generator_RowClassName="DataTable3Row" msprop:Generator_UserTableName="DataTable3" msprop:Generator_RowEvArgName="DataTable3RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MILISEGUNDOS" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMILISEGUNDOS" msprop:Generator_ColumnPropNameInRow="MILISEGUNDOS" msprop:Generator_ColumnPropNameInTable="MILISEGUNDOSColumn" msprop:Generator_UserColumnName="MILISEGUNDOS" type="xs:int" minOccurs="0" />
+              <xs:element name="TIPOCOLOR" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTIPOCOLOR" msprop:Generator_ColumnPropNameInRow="TIPOCOLOR" msprop:Generator_ColumnPropNameInTable="TIPOCOLORColumn" msprop:Generator_UserColumnName="TIPOCOLOR" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TIENDA" msprop:Generator_ColumnVarNameInTable="columnTIENDA" msprop:Generator_ColumnPropNameInRow="TIENDA" msprop:Generator_ColumnPropNameInTable="TIENDAColumn" msprop:Generator_UserColumnName="TIENDA" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="60" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TIEMPO" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTIEMPO" msprop:Generator_ColumnPropNameInRow="TIEMPO" msprop:Generator_ColumnPropNameInTable="TIEMPOColumn" msprop:Generator_UserColumnName="TIEMPO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DataTable2" msprop:Generator_TableClassName="DataTable2DataTable" msprop:Generator_TableVarName="tableDataTable2" msprop:Generator_RowChangedName="DataTable2RowChanged" msprop:Generator_TablePropName="DataTable2" msprop:Generator_RowDeletingName="DataTable2RowDeleting" msprop:Generator_RowChangingName="DataTable2RowChanging" msprop:Generator_RowEvHandlerName="DataTable2RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable2RowDeleted" msprop:Generator_RowClassName="DataTable2Row" msprop:Generator_UserTableName="DataTable2" msprop:Generator_RowEvArgName="DataTable2RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MILISEGUNDOS" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMILISEGUNDOS" msprop:Generator_ColumnPropNameInRow="MILISEGUNDOS" msprop:Generator_ColumnPropNameInTable="MILISEGUNDOSColumn" msprop:Generator_UserColumnName="MILISEGUNDOS" type="xs:int" minOccurs="0" />
+              <xs:element name="TIPOCOLOR" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTIPOCOLOR" msprop:Generator_ColumnPropNameInRow="TIPOCOLOR" msprop:Generator_ColumnPropNameInTable="TIPOCOLORColumn" msprop:Generator_UserColumnName="TIPOCOLOR" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TIENDA" msprop:Generator_ColumnVarNameInTable="columnTIENDA" msprop:Generator_ColumnPropNameInRow="TIENDA" msprop:Generator_ColumnPropNameInTable="TIENDAColumn" msprop:Generator_UserColumnName="TIENDA" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="60" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TIEMPO" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTIEMPO" msprop:Generator_ColumnPropNameInRow="TIEMPO" msprop:Generator_ColumnPropNameInTable="TIEMPOColumn" msprop:Generator_UserColumnName="TIEMPO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MILISEGUNDOS" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMILISEGUNDOS" msprop:Generator_ColumnPropNameInRow="MILISEGUNDOS" msprop:Generator_ColumnPropNameInTable="MILISEGUNDOSColumn" msprop:Generator_UserColumnName="MILISEGUNDOS" type="xs:int" minOccurs="0" />
+              <xs:element name="TIPOCOLOR" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTIPOCOLOR" msprop:Generator_ColumnPropNameInRow="TIPOCOLOR" msprop:Generator_ColumnPropNameInTable="TIPOCOLORColumn" msprop:Generator_UserColumnName="TIPOCOLOR" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TIENDA" msprop:Generator_ColumnVarNameInTable="columnTIENDA" msprop:Generator_ColumnPropNameInRow="TIENDA" msprop:Generator_ColumnPropNameInTable="TIENDAColumn" msprop:Generator_UserColumnName="TIENDA" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="60" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TIEMPO" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTIEMPO" msprop:Generator_ColumnPropNameInRow="TIEMPO" msprop:Generator_ColumnPropNameInTable="TIEMPOColumn" msprop:Generator_UserColumnName="TIEMPO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

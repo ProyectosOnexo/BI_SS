@@ -1,0 +1,279 @@
+﻿
+
+#DropDownList1 datalist {
+    border: 5px solid #6db23f;
+}
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+@-webkit-keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: translatey(-10px);
+        -moz-transform: translatey(-10px);
+        -o-transform: translatey(-10px);
+        transform: translatey(-10px);
+    }
+
+    50% {
+        opacity: 5;
+        -webkit-transform: translatey(0);
+        -moz-transform: translatey(0);
+        -o-transform: translatey(0);
+        transform: translatey(0);
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: translatey(-10px);
+        -moz-transform: translatey(-10px);
+        -o-transform: translatey(-10px);
+        transform: translatey(-10px);
+    }
+}
+
+@-moz-keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: translatey(-10px);
+        -moz-transform: translatey(-10px);
+        -o-transform: translatey(-10px);
+        transform: translatey(-10px);
+    }
+
+    50% {
+        opacity: 5;
+        -webkit-transform: translatey(0);
+        -moz-transform: translatey(0);
+        -o-transform: translatey(0);
+        transform: translatey(0);
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: translatey(-10px);
+        -moz-transform: translatey(-10px);
+        -o-transform: translatey(-10px);
+        transform: translatey(-10px);
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: translatey(-10px);
+        -moz-transform: translatey(-10px);
+        -o-transform: translatey(-10px);
+        transform: translatey(-10px);
+    }
+
+    50% {
+        opacity: 5;
+        -webkit-transform: translatey(0);
+        -moz-transform: translatey(0);
+        -o-transform: translatey(0);
+        transform: translatey(0);
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: translatey(-10px);
+        -moz-transform: translatey(-10px);
+        -o-transform: translatey(-10px);
+        transform: translatey(-10px);
+    }
+}
+
+.AnimacionMensajeAlert {
+    -webkit-animation-name: fadeInDown;
+    -moz-animation-name: fadeInDown;
+    -o-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 9s;
+    -moz-animation-duration: 9s;
+    -o-animation-duration: 9s;
+    animation-duration: 9s;
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;..");
+}
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,102,203, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.custom-toggler.navbar-toggler {
+    border-color: rgb(255,102,203);
+}
+
+#Panel1 {
+    border-radius: 5px;
+}
+
+#NavBar {
+    z-index: 2;
+}
+
+.dropdown {
+    margin-top: 1%;
+}
+
+.avatar {
+    margin-right: -35px;
+}
+
+.ButtonSlider {
+    position: fixed;
+}
+
+
+#progressBackgroundFilter {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    overflow: hidden;
+    /*padding:;
+    margin:;*/
+    opacity: 0;
+    z-index: 1000;
+    background-color: #808080;
+}
+
+#processMessage {
+    position: fixed;
+    top: 30%;
+    left: 40%;
+    padding: 10px;
+    width: 100px%;
+    z-index: 1001;
+    background-color: transparent;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+}
+
+#ReportViewer1 {
+    font-family: 'Javanese Text';
+}
+
+select:focus > option:checked {
+    background: #6db23f !important;
+    color: white;
+}
+
+select::selection {
+    color: red;
+    background: yellow;
+}
+
+.select2-results .select2-highlighted {
+    background: #6db23f;
+    color: white;
+}
+
+@media only screen and (min-width: 200px) and (max-width: 576px) {
+
+    #processMessage {
+        position: fixed;
+        top: 30%;
+        left: 25%;
+        padding: 10px;
+        width: 250px !important;
+        z-index: 1001;
+        background-color: transparent;
+        border-radius: 25px;
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+
+@media only screen and (min-width: 577px) and (max-width: 653px) {
+
+    #processMessage {
+        position: fixed;
+        top: 30%;
+        left: 27.5%;
+        padding: 10px;
+        width: 300px !important;
+        z-index: 1001;
+        background-color: transparent;
+        border-radius: 25px;
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+@media only screen and (min-width: 653px) and (max-width: 700px) {
+
+    #processMessage {
+        position: fixed;
+        top: 30%;
+        left: 29%;
+        padding: 10px;
+        width: 300px !important;
+        z-index: 1001;
+        background-color: transparent;
+        border-radius: 25px;
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+
+@media only screen and (min-width: 700px) and (max-width: 1000px) {
+
+    #processMessage {
+        position: fixed;
+        top: 30%;
+        left: 35%;
+        padding: 10px;
+        width: 300px !important;
+        z-index: 1001;
+        background-color: transparent;
+        border-radius: 25px;
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+@media only screen and (min-width: 1000px) and (max-width: 1058px) {
+
+    #processMessage {
+        position: fixed;
+        top: 30%;
+        left: 37%;
+        padding: 10px;
+        width: 300px !important;
+        z-index: 1001;
+        background-color: transparent;
+        border-radius: 25px;
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+@media only screen and (min-width: 1000px) and (max-width: 1258px) {
+
+    #processMessage {
+        position: fixed;
+        top: 30%;
+        left: 40%;
+        padding: 10px;
+        width: 300px !important;
+        z-index: 1001;
+        background-color: transparent;
+        border-radius: 25px;
+        justify-content: center;
+        text-align: center;
+    }
+}

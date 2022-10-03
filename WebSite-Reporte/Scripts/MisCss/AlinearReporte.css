@@ -1,0 +1,7 @@
+﻿.navbar-default .navbar-brand {
+    color: #d7e2e9;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+    color: #e5dbdb;
+}

@@ -1,0 +1,39 @@
+﻿.GridView1 {
+    width: 100%;
+}
+
+#dvGrid{
+    width: 100%;
+}
+
+#UpdatePanel1{
+   width: 100%;
+}
+
+/*RESOLUCION ESTANDAR TELEFONOS*/
+@media only screen and (max-width: 820px) {
+    .headerStyle {
+        font-size: smaller;
+    }
+
+    .rowsStyle {
+        font-size: smaller;
+    }
+
+}
+
+.UbicacionStyle{
+    min-width: 350px;
+}
+
+.TiendaStyle {
+    min-width: 150px;
+}
+
+.LatStyle {
+    min-width: 150px;
+}
+
+.LongStyle {
+    min-width: 150px;
+}

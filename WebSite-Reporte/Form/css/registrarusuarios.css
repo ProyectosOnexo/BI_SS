@@ -1,0 +1,59 @@
+﻿body {
+    font-family: 'Numans', sans-serif;
+}
+
+navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #ffffff;
+    background-color: dodgerblue; /* add background-color to active links */
+}
+
+.container {
+    align-content: center;
+}
+
+
+input:focus {
+    outline: 0 0 0 0 !important;
+    box-shadow: 0 0 0 0 !important;
+}
+
+.remember {
+    color: white;
+}
+
+    .remember input {
+        width: 20px;
+        height: 20px;
+        margin-left: 15px;
+        margin-right: 5px;
+    }
+
+.login_btn {
+    color: black;
+    background-color: #FFC312;
+    width: 250px;
+}
+
+
+#ColorTexto{
+    color: whitesmoke;
+}
+
+.modal{
+    color: black;
+}
+
+.modal-header-danger {
+    color: #fff;
+    background-color: #d9534f;
+}
+
+.modal-header-enviar {
+    color: #fff;
+    background-color: dodgerblue;
+}
+
+.modal-header-check{
+    color: white;
+}

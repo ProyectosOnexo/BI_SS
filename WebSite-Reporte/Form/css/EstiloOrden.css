@@ -1,0 +1,122 @@
+﻿
+body {
+    width: 99% !important;
+    padding-left: 15px !important;
+    padding-right: 5px !important;
+}
+
+#listaMenu {
+    width: 100%;
+}
+
+    #listaMenu li {
+        display: inline;
+    }
+
+        #listaMenu li a {
+            font-family: Arial;
+            font-size: 11px;
+            text-decoration: none;
+            float: left;
+            padding: 10px;
+            background-color: #fff;
+            color: #000;
+        }
+
+.eWlEVF {
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    position: relative;
+    text-align: left;
+    width: 31.33%;
+    background: rgb(255, 255, 255);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(197, 199, 200);
+    border-image: initial;
+    border-radius: 7px;
+    margin: 0px 1% 2%;
+    overflow: hidden;
+    padding: 0px;
+    transition: box-shadow 0.5s ease 0s;
+}
+
+a, button {
+    color: #000;
+    text-decoration: none;
+}
+
+.tituloCategoria h2 {
+    text-align: center;
+    padding: 10px;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    border-color: #ff0000;
+}
+
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+        .sidenav a {
+            font-size: 18px;
+        }
+}
+
+.oculta {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+.modificador {
+    padding: 5px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.select {
+    border-color: #ff0000;
+}
+

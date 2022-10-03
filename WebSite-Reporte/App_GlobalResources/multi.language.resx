@@ -1,0 +1,468 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="adin_t2sucursales" xml:space="preserve">
+    <value>Sucursales</value>
+  </data>
+  <data name="admin_acciones" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
+  <data name="admin_activar" xml:space="preserve">
+    <value>Activar</value>
+  </data>
+  <data name="admin_asignacion" xml:space="preserve">
+    <value>Asignación de sucursales</value>
+  </data>
+  <data name="admin_bloquear" xml:space="preserve">
+    <value>Bloquear</value>
+  </data>
+  <data name="admin_cerrar" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="admin_eliminar" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="admin_filltro1" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="admin_guardar" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="admin_subtitutlo1" xml:space="preserve">
+    <value>Solicitudes de ingreso</value>
+  </data>
+  <data name="admin_t1activacion" xml:space="preserve">
+    <value>Activación</value>
+  </data>
+  <data name="admin_t1correo" xml:space="preserve">
+    <value>Correo</value>
+  </data>
+  <data name="admin_t1fecha" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="admin_t1nombre" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="admin_t1rol" xml:space="preserve">
+    <value>Rol</value>
+  </data>
+  <data name="admin_t2accion" xml:space="preserve">
+    <value>Acción</value>
+  </data>
+  <data name="admin_t2estado" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="admin_t2subtitulo2" xml:space="preserve">
+    <value>Usuarios activos</value>
+  </data>
+  <data name="admin_tiinactividad" xml:space="preserve">
+    <value>Inactividad</value>
+  </data>
+  <data name="admin_titulo" xml:space="preserve">
+    <value>Administrador</value>
+  </data>
+  <data name="dash_analisismetodos" xml:space="preserve">
+    <value>Análisis de métodos de pago</value>
+  </data>
+  <data name="dash_cancelanalisis" xml:space="preserve">
+    <value>Análisis de cancelaciones</value>
+  </data>
+  <data name="dash_cancelmotivos" xml:space="preserve">
+    <value>Motivos de cancelación</value>
+  </data>
+  <data name="dash_cancelporciones" xml:space="preserve">
+    <value>Porciones</value>
+  </data>
+  <data name="dash_cancelstatus" xml:space="preserve">
+    <value>Status de cancelaciones</value>
+  </data>
+  <data name="dash_canceltgrupo" xml:space="preserve">
+    <value>Grupo</value>
+  </data>
+  <data name="dash_canceltipos" xml:space="preserve">
+    <value>Tipo de cancelación</value>
+  </data>
+  <data name="dash_canceltitulo" xml:space="preserve">
+    <value>Cancelación</value>
+  </data>
+  <data name="dash_canceltmonto" xml:space="preserve">
+    <value>Monto </value>
+  </data>
+  <data name="dash_cuadro1" xml:space="preserve">
+    <value>Venta</value>
+  </data>
+  <data name="dash_cuadro2" xml:space="preserve">
+    <value>Presupuesto</value>
+  </data>
+  <data name="dash_cuadro3" xml:space="preserve">
+    <value>Ticket</value>
+  </data>
+  <data name="dash_cuadro4" xml:space="preserve">
+    <value>Ticket promedio</value>
+  </data>
+  <data name="dash_decuentosanalisis" xml:space="preserve">
+    <value>Análisis de descuento</value>
+  </data>
+  <data name="dash_descuentosconcepto" xml:space="preserve">
+    <value>Concepto de descuentos</value>
+  </data>
+  <data name="dash_descuentostdescuento" xml:space="preserve">
+    <value>Importe con descuento</value>
+  </data>
+  <data name="dash_descuentostipo" xml:space="preserve">
+    <value>Tipos de descuento</value>
+  </data>
+  <data name="dash_descuentostitulo" xml:space="preserve">
+    <value>Descuentos</value>
+  </data>
+  <data name="dash_descuentostmonto" xml:space="preserve">
+    <value>Monto descuento</value>
+  </data>
+  <data name="dash_descuentostneta" xml:space="preserve">
+    <value>Venta neta</value>
+  </data>
+  <data name="dash_descuentostoriginal" xml:space="preserve">
+    <value>Importe original</value>
+  </data>
+  <data name="dash_descuentostporcentaje" xml:space="preserve">
+    <value>% Descuento</value>
+  </data>
+  <data name="dash_descuentostporciones" xml:space="preserve">
+    <value>Porciones c/ descuento</value>
+  </data>
+  <data name="dash_descuentostunidad" xml:space="preserve">
+    <value>Unidad</value>
+  </data>
+  <data name="dash_metodossub1" xml:space="preserve">
+    <value>Métodos de pago ($)</value>
+  </data>
+  <data name="dash_metodossub2" xml:space="preserve">
+    <value>Métodos de pago ($)</value>
+  </data>
+  <data name="dash_metodossub3" xml:space="preserve">
+    <value>Trx de pago (#)</value>
+  </data>
+  <data name="dash_metodossub4" xml:space="preserve">
+    <value>Trx de pago (#)</value>
+  </data>
+  <data name="dash_metodostcredito" xml:space="preserve">
+    <value>Crédito</value>
+  </data>
+  <data name="dash_metodostdebito" xml:space="preserve">
+    <value>Débito</value>
+  </data>
+  <data name="dash_metodostefectivo" xml:space="preserve">
+    <value>Efectivo</value>
+  </data>
+  <data name="dash_metodostitulo" xml:space="preserve">
+    <value>Métodos de pago</value>
+  </data>
+  <data name="dash_metodostotros" xml:space="preserve">
+    <value>Otros</value>
+  </data>
+  <data name="dash_todas" xml:space="preserve">
+    <value>Todas</value>
+  </data>
+  <data name="dash_vebtascomportamiento" xml:space="preserve">
+    <value>Comportamiento de ventas por hora</value>
+  </data>
+  <data name="dash_ventasanalisis" xml:space="preserve">
+    <value>Análisis de ventas</value>
+  </data>
+  <data name="dash_ventastcenas" xml:space="preserve">
+    <value>Cenas</value>
+  </data>
+  <data name="dash_ventastcomidas" xml:space="preserve">
+    <value>Comidas</value>
+  </data>
+  <data name="dash_ventastdesayunos" xml:space="preserve">
+    <value>Desayunos</value>
+  </data>
+  <data name="dash_ventastgrupo" xml:space="preserve">
+    <value>Grupo</value>
+  </data>
+  <data name="dash_ventastitulo" xml:space="preserve">
+    <value>Ventas</value>
+  </data>
+  <data name="dash_ventasttotal" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="lang" xml:space="preserve">
+    <value>Español</value>
+  </data>
+  <data name="login_botoninicio" xml:space="preserve">
+    <value>Iniciar sesión</value>
+  </data>
+  <data name="login_botonrecuperar" xml:space="preserve">
+    <value>Recuperar contraseña</value>
+  </data>
+  <data name="login_botonregistrate" xml:space="preserve">
+    <value>Registrate</value>
+  </data>
+  <data name="login_contrasena" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="login_correo" xml:space="preserve">
+    <value>ejemplo@dominio.com</value>
+  </data>
+  <data name="login_correoenviado" xml:space="preserve">
+    <value>El correo ha sido enviado</value>
+  </data>
+  <data name="login_datosincorrectos" xml:space="preserve">
+    <value>Datos incorrectos</value>
+  </data>
+  <data name="login_incorrectos" xml:space="preserve">
+    <value>correo o contraseña incorrectos</value>
+  </data>
+  <data name="login_introduceinformacion" xml:space="preserve">
+    <value>introduce tu información</value>
+  </data>
+  <data name="login_invalido" xml:space="preserve">
+    <value>Correo inválido</value>
+  </data>
+  <data name="login_mensajeinvalido" xml:space="preserve">
+    <value>El correo que ingreso no pertenece a ninguna cuenta</value>
+  </data>
+  <data name="login_mensajerevise" xml:space="preserve">
+    <value>En caso de que no reciba el correo, inténtelo de nuevo, si el problema continua póngase en contacto  con el administrador.</value>
+  </data>
+  <data name="login_nocuenta" xml:space="preserve">
+    <value>No tienes cuenta</value>
+  </data>
+  <data name="login_olvidaste" xml:space="preserve">
+    <value>¿Olvidaste tu contraseña?</value>
+  </data>
+  <data name="login_problemas" xml:space="preserve">
+    <value>¿Estas teniendo problemas para ingresar?</value>
+  </data>
+  <data name="login_revise" xml:space="preserve">
+    <value>Revise su bandeja de entrada, el correo con la información de su cuenta ha sido enviado</value>
+  </data>
+  <data name="login_sistema" xml:space="preserve">
+    <value>Sistema de generación de reportes</value>
+  </data>
+  <data name="login_sistemadesc1" xml:space="preserve">
+    <value>Este sistema le permitirá ver</value>
+  </data>
+  <data name="login_sistemadesc2" xml:space="preserve">
+    <value>la información de su sucursal</value>
+  </data>
+  <data name="login_sistemadesc3" xml:space="preserve">
+    <value>por medio de reportes que estan adaptados para su uso personal</value>
+  </data>
+  <data name="login_verificar" xml:space="preserve">
+    <value>Verifique su información</value>
+  </data>
+  <data name="master_reportes" xml:space="preserve">
+    <value>Reportes</value>
+  </data>
+  <data name="master_tiendas" xml:space="preserve">
+    <value>Tiendas</value>
+  </data>
+  <data name="registro_boton" xml:space="preserve">
+    <value>Registrarme</value>
+  </data>
+  <data name="registro_contrasena" xml:space="preserve">
+    <value>contraseña</value>
+  </data>
+  <data name="registro_correo" xml:space="preserve">
+    <value>ejemplo@dominio.com</value>
+  </data>
+  <data name="registro_exitoso2" xml:space="preserve">
+    <value>TE HAS REGISTRADO CORRECTAMENTE</value>
+  </data>
+  <data name="registro_exitoso3" xml:space="preserve">
+    <value>Presione el boton de continuar para finalizar</value>
+  </data>
+  <data name="registro_nombre" xml:space="preserve">
+    <value>Nombre completo</value>
+  </data>
+  <data name="registro_repitecontrasena" xml:space="preserve">
+    <value>verifica tu contraseña</value>
+  </data>
+  <data name="registro_terminos2" xml:space="preserve">
+    <value>Política de datos</value>
+  </data>
+  <data name="registro_termions1" xml:space="preserve">
+    <value>Al registrarte aceptas nuestra condiciones y la</value>
+  </data>
+  <data name="registro_textotitulo" xml:space="preserve">
+    <value>introduce tu información</value>
+  </data>
+  <data name="registro_titulo" xml:space="preserve">
+    <value>Registrate</value>
+  </data>
+  <data name="regitro_exitoso" xml:space="preserve">
+    <value>Registro exitoso</value>
+  </data>
+  <data name="reportes" xml:space="preserve">
+    <value>reportes</value>
+  </data>
+  <data name="reportes_diario" xml:space="preserve">
+    <value>Diario</value>
+  </data>
+  <data name="reportes_filtro" xml:space="preserve">
+    <value>Filtro</value>
+  </data>
+  <data name="reportes_hora" xml:space="preserve">
+    <value>Por hora</value>
+  </data>
+  <data name="reportes_pmix" xml:space="preserve">
+    <value>PMix</value>
+  </data>
+  <data name="reportes_productos" xml:space="preserve">
+    <value>Productos</value>
+  </data>
+  <data name="reportes_productosmasvenddos" xml:space="preserve">
+    <value>Productos más vendidos POS</value>
+  </data>
+  <data name="reportes_titulo" xml:space="preserve">
+    <value>Reportes</value>
+  </data>
+  <data name="reportes_todas" xml:space="preserve">
+    <value>Todas</value>
+  </data>
+  <data name="reportes_transacciones" xml:space="preserve">
+    <value>Transacciones</value>
+  </data>
+  <data name="reportes_transticket" xml:space="preserve">
+    <value>Tansacciones tickets</value>
+  </data>
+  <data name="reportes_vds" xml:space="preserve">
+    <value>Velocidad del servicio</value>
+  </data>
+  <data name="reportes_vdsconsolidado" xml:space="preserve">
+    <value>Consolidado tiempo de servicio</value>
+  </data>
+  <data name="tiendas_grupostiendas" xml:space="preserve">
+    <value>Grupos de tiendas</value>
+  </data>
+  <data name="tiendas_tabladetalle" xml:space="preserve">
+    <value>Detalle</value>
+  </data>
+  <data name="tiendas_tablaeditar" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="tiendas_tablaeliminar" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="tiendas_tablanombre" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+</root>

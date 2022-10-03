@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSetReporteVDS" targetNamespace="http://tempuri.org/DataSetReporteVDS.xsd" xmlns:mstns="http://tempuri.org/DataSetReporteVDS.xsd" xmlns="http://tempuri.org/DataSetReporteVDS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="2" FunctionsComponentName="QueriesTableAdapter" GeneratorFunctionsComponentClassName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" UserFunctionsComponentName="QueriesTableAdapter" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="PruebasConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="PruebasConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.PruebasConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ToksBdConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ToksBdConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ToksBdConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="ReportesConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ReportesConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.ReportesConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="mlocalTableAdapter" GeneratorDataComponentClassName="mlocalTableAdapter" Name="mlocal" UserDataComponentName="mlocalTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ReportesConnectionString (Web.config)" DbObjectName="Reportes2.dbo.mlocal" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select nombre ,''Descripcion,null Total,null Tiempo,null Atrasado,null promedio,null milisPromedio,null milisTiempo,null promedioTiempo,null milisAtrasado,null promedioAtrasado
+		,-1 orden ,0 orden2
+	from mlocal where id_local = @idSucursal
+	union all
+	select emp, Descripcion,sum(tiempo)+sum(atrasado) Total, sum(tiempo) Tiempo,sum(atrasado) Atrasado
+		,convert(varchar,(avg(milis)/(1000))/(60*60)) + ':' +(case when (avg(milis)/(1000))/60 &gt; 10 then convert(varchar,(avg(milis)/(1000))/60) else '0'+convert(varchar,(avg(milis)/(1000))/60)  end )+ + ':' 
+		+(case when (avg(milis)/(1000))%60 &gt; 10 then convert(varchar,(avg(milis)/(1000))%60) else '0'+convert(varchar,(avg(milis)/(1000))%60) end)promedio
+		,avg(milis)milisPromedio
+		,isnull(avg(case when milis &lt;= 480000 then milis end),0)milisTiempo
+		,isnull(convert(varchar,(avg(case when milis &lt;= 480000 then milis end)/(1000))/(60*60)) + ':' +(case when (avg(case when milis &lt;= 480000 then milis end)/(1000))/60 &gt; 10 then convert(varchar,(avg(case when milis &lt;= 480000 then milis end)/(1000))/60) else '0'+convert(varchar,(avg(case when milis &lt;= 480000 then milis end)/(1000))/60)  end )+ + ':' 
+		+(case when (avg(case when milis &lt;= 480000 then milis end)/(1000))%60 &gt; 10 then convert(varchar,(avg(case when milis &lt;= 480000 then milis end)/(1000))%60) else '0'+convert(varchar,(avg(case when milis &lt;= 480000 then milis end)/(1000))%60) end),0)promedioTiempo
+		,avg(case when milis &gt; 480000 then milis end)milisAtrasado
+		,isnull(convert(varchar,(avg(case when milis &gt; 480000 then milis end)/(1000))/(60*60)) + ':' +(case when (avg(case when milis &gt; 480000 then milis end)/(1000))/60 &gt; 10 then convert(varchar,(avg(case when milis &gt; 480000 then milis end)/(1000))/60) else '0'+convert(varchar,(avg(case when milis &gt; 480000 then milis end)/(1000))/60)  end )+ + ':' 
+		+(case when (avg(case when milis &gt; 480000 then milis end)/(1000))%60 &gt; 10 then convert(varchar,(avg(case when milis &gt; 480000 then milis end)/(1000))%60) else '0'+convert(varchar,(avg(case when milis &gt; 480000 then milis end)/(1000))%60) end),0)promedioAtrasado
+		,id_emp orden,case when Descripcion = 'Desayuno' then 1 else 2 end
+	--into #temp
+	from(
+		select 'Desayuno' Descripcion,case when DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )&lt;= 480000 then 1 else 0 end tiempo
+		,case when DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )&gt; 480000 then 1 else 0 end atrasado	
+		,DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )milis,isnull(emp,'') emp,id_emp
+		from   hcta a 		
+		where 
+			DATEADD(day, DATEDIFF(dd, 0,fecha_cierre), 0) between @fecha and @fechaFinal
+			and fecha_cierre &lt; CONVERT(datetime,(CONVERT(VARCHAR(15),fecha_cierre,23)  + ' ' + cast(11 as varchar(20))+':59:59')) 
+			AND id_local in (select id_local from mlocal where id_local = @idSucursal) 
+				 or  id_local in  (select b.idLocal from relacionSucursalUsuario a join RelacionGrupoSucursal b on a.id_local = b.idGrupo 
+				 where a.id_usuario = @idUsuario ) 
+				 or (a.id_local in (select id_local from mlocal where nombre not like '%trial%' ) and @idSucursal=0 and (select rol from usuarios where id = @idUsuario)='superusuario')
+		union all
+		select 'Comida' Descripcion,case when DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )&lt;= 480000 then 1 else 0 end tiempo--,hora_bump,cast( fecha_cierre as time)
+		,case when DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )&gt; 480000 then 1 else 0 end atrasado
+		,DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )milis,isnull(emp,'') emp,id_emp
+		from   hcta a
+		where 
+			DATEADD(day, DATEDIFF(dd, 0,fecha_cierre), 0) between @fecha and @fechaFinal
+			and fecha_cierre &gt; CONVERT(datetime,(CONVERT(VARCHAR(15),fecha_cierre,23)  + ' ' + cast(11+1 as varchar(20))+':59:59')) 
+			AND id_local in (select id_local from mlocal where id_local = @idSucursal) 
+				 or  id_local in  (select b.idLocal from relacionSucursalUsuario a join RelacionGrupoSucursal b on a.id_local = b.idGrupo 
+				 where a.id_usuario = @idUsuario ) 
+				 or (a.id_local in (select id_local from mlocal where nombre not like '%trial%' ) and @idSucursal=0 and (select rol from usuarios where id = @idUsuario)='superusuario')
+		)t0
+	group by Descripcion,emp,id_emp
+	union all
+	select emp,'Total',sum(Total),sum(Tiempo),sum(Atrasado) 
+		,convert(varchar,(avg(milisPromedio)/(1000))/(60*60)) + ':' +(case when (avg(milisPromedio)/(1000))/60 &gt; 10 then convert(varchar,(avg(milisPromedio)/(1000))/60) else '0'+convert(varchar,(avg(milisPromedio)/(1000))/60)  end )+ + ':' 
+		+(case when (avg(milisPromedio)/(1000))%60 &gt; 10 then convert(varchar,(avg(milisPromedio)/(1000))%60) else '0'+convert(varchar,(avg(milisPromedio)/(1000))%60) end)promedio,null,null
+		,convert(varchar,(avg(milisTiempo)/(1000))/(60*60)) + ':' +(case when (avg(milisTiempo)/(1000))/60 &gt; 10 then convert(varchar,(avg(milisTiempo)/(1000))/60) else '0'+convert(varchar,(avg(milisTiempo)/(1000))/60)  end )+ + ':' 
+		+(case when (avg(milisTiempo)/(1000))%60 &gt; 10 then convert(varchar,(avg(milisTiempo)/(1000))%60) else '0'+convert(varchar,(avg(milisTiempo)/(1000))%60) end)promedio,null
+		,convert(varchar,(avg(milisAtrasado)/(1000))/(60*60)) + ':' +(case when (avg(milisAtrasado)/(1000))/60 &gt; 10 then convert(varchar,(avg(milisAtrasado)/(1000))/60) else '0'+convert(varchar,(avg(milisAtrasado)/(1000))/60)  end )+ + ':' 
+		+(case when (avg(milisAtrasado)/(1000))%60 &gt; 10 then convert(varchar,(avg(milisAtrasado)/(1000))%60) else '0'+convert(varchar,(avg(milisAtrasado)/(1000))%60) end)promedio
+		,id_emp,3 orden2
+	from (
+		select emp, Descripcion,sum(tiempo)+sum(atrasado) Total, sum(tiempo) Tiempo,sum(atrasado) Atrasado
+			,convert(varchar,(avg(milis)/(1000))/(60*60)) + ':' +(case when (avg(milis)/(1000))/60 &gt; 10 then convert(varchar,(avg(milis)/(1000))/60) else '0'+convert(varchar,(avg(milis)/(1000))/60)  end )+ + ':' 
+			+(case when (avg(milis)/(1000))%60 &gt; 10 then convert(varchar,(avg(milis)/(1000))%60) else '0'+convert(varchar,(avg(milis)/(1000))%60) end)promedio
+			,avg(milis)milisPromedio
+			,isnull(avg(case when milis &lt;= 480000 then milis end),0)milisTiempo
+			,isnull(convert(varchar,(avg(case when milis &lt;= 480000 then milis end)/(1000))/(60*60)) + ':' +(case when (avg(case when milis &lt;= 480000 then milis end)/(1000))/60 &gt; 10 then convert(varchar,(avg(case when milis &lt;= 480000 then milis end)/(1000))/60) else '0'+convert(varchar,(avg(case when milis &lt;= 480000 then milis end)/(1000))/60)  end )+ + ':' 
+			+(case when (avg(case when milis &lt;= 480000 then milis end)/(1000))%60 &gt; 10 then convert(varchar,(avg(case when milis &lt;= 480000 then milis end)/(1000))%60) else '0'+convert(varchar,(avg(case when milis &lt;= 480000 then milis end)/(1000))%60) end),0)promedioTiempo
+			,avg(case when milis &gt; 480000 then milis end)milisAtrasado
+			,isnull(convert(varchar,(avg(case when milis &gt; 480000 then milis end)/(1000))/(60*60)) + ':' +(case when (avg(case when milis &gt; 480000 then milis end)/(1000))/60 &gt; 10 then convert(varchar,(avg(case when milis &gt; 480000 then milis end)/(1000))/60) else '0'+convert(varchar,(avg(case when milis &gt; 480000 then milis end)/(1000))/60)  end )+ + ':' 
+			+(case when (avg(case when milis &gt; 480000 then milis end)/(1000))%60 &gt; 10 then convert(varchar,(avg(case when milis &gt; 480000 then milis end)/(1000))%60) else '0'+convert(varchar,(avg(case when milis &gt; 480000 then milis end)/(1000))%60) end),0)promedioAtrasado
+			,id_emp
+		--into #temp
+		from(
+			select 'Desayuno' Descripcion,case when DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )&lt;= 480000 then 1 else 0 end tiempo
+			,case when DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )&gt; 480000 then 1 else 0 end atrasado	
+			,DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )milis,isnull(emp,'') emp,id_emp
+			from   hcta a 
+		
+			where 
+				DATEADD(day, DATEDIFF(dd, 0,fecha_cierre), 0) between @fecha and @fechaFinal
+				and fecha_cierre &lt; CONVERT(datetime,(CONVERT(VARCHAR(15),fecha_cierre,23)  + ' ' + cast(11 as varchar(20))+':59:59')) 
+				AND id_local in (select id_local from mlocal where id_local = @idSucursal) 
+				 or  id_local in  (select b.idLocal from relacionSucursalUsuario a join RelacionGrupoSucursal b on a.id_local = b.idGrupo 
+				 where a.id_usuario = @idUsuario ) 
+				 or (a.id_local in (select id_local from mlocal where nombre not like '%trial%' ) and @idSucursal=0 and (select rol from usuarios where id = @idUsuario)='superusuario')
+			union all
+			select 'Comida' Descripcion,case when DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )&lt;= 480000 then 1 else 0 end tiempo--,hora_bump,cast( fecha_cierre as time)
+			,case when DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )&gt; 480000 then 1 else 0 end atrasado
+			,DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )milis,isnull(emp,'') emp,id_emp
+			from   hcta a
+			where 
+				DATEADD(day, DATEDIFF(dd, 0,fecha_cierre), 0) between @fecha and @fechaFinal
+				and fecha_cierre &gt; CONVERT(datetime,(CONVERT(VARCHAR(15),fecha_cierre,23)  + ' ' + cast(11+1 as varchar(20))+':59:59')) 
+				AND id_local in (select id_local from mlocal where id_local = @idSucursal) 
+				 or  id_local in  (select b.idLocal from relacionSucursalUsuario a join RelacionGrupoSucursal b on a.id_local = b.idGrupo 
+				 where a.id_usuario = @idUsuario ) 
+				 or (a.id_local in (select id_local from mlocal where nombre not like '%trial%'  and id_local &gt;= 750) and @idSucursal=0 and (select rol from usuarios where id = @idUsuario)='superusuario')
+			)t0
+		group by Descripcion,emp,id_emp
+	)t1
+	group by emp,id_emp
+	union all
+	select 'Gran Total','',sum(Total),sum(Tiempo),sum(Atrasado) 
+		,convert(varchar,(avg(milisPromedio)/(1000))/(60*60)) + ':' +(case when (avg(milisPromedio)/(1000))/60 &gt; 10 then convert(varchar,(avg(milisPromedio)/(1000))/60) else '0'+convert(varchar,(avg(milisPromedio)/(1000))/60)  end )+ + ':' 
+		+(case when (avg(milisPromedio)/(1000))%60 &gt; 10 then convert(varchar,(avg(milisPromedio)/(1000))%60) else '0'+convert(varchar,(avg(milisPromedio)/(1000))%60) end)promedio,null,null
+		,convert(varchar,(avg(milisTiempo)/(1000))/(60*60)) + ':' +(case when (avg(milisTiempo)/(1000))/60 &gt; 10 then convert(varchar,(avg(milisTiempo)/(1000))/60) else '0'+convert(varchar,(avg(milisTiempo)/(1000))/60)  end )+ + ':' 
+		+(case when (avg(milisTiempo)/(1000))%60 &gt; 10 then convert(varchar,(avg(milisTiempo)/(1000))%60) else '0'+convert(varchar,(avg(milisTiempo)/(1000))%60) end)promedio,null
+		,convert(varchar,(avg(milisAtrasado)/(1000))/(60*60)) + ':' +(case when (avg(milisAtrasado)/(1000))/60 &gt; 10 then convert(varchar,(avg(milisAtrasado)/(1000))/60) else '0'+convert(varchar,(avg(milisAtrasado)/(1000))/60)  end )+ + ':' 
+		+(case when (avg(milisAtrasado)/(1000))%60 &gt; 10 then convert(varchar,(avg(milisAtrasado)/(1000))%60) else '0'+convert(varchar,(avg(milisAtrasado)/(1000))%60) end)promedio
+		,(select max(aa.id_resp) from hresp aa)+1,(select max(aa.id_resp) from hresp aa)+1 orden2
+	from (
+		select emp, Descripcion,sum(tiempo)+sum(atrasado) Total, sum(tiempo) Tiempo,sum(atrasado) Atrasado
+			,convert(varchar,(avg(milis)/(1000))/(60*60)) + ':' +(case when (avg(milis)/(1000))/60 &gt; 10 then convert(varchar,(avg(milis)/(1000))/60) else '0'+convert(varchar,(avg(milis)/(1000))/60)  end )+ + ':' 
+			+(case when (avg(milis)/(1000))%60 &gt; 10 then convert(varchar,(avg(milis)/(1000))%60) else '0'+convert(varchar,(avg(milis)/(1000))%60) end)promedio
+			,avg(milis)milisPromedio
+			,isnull(avg(case when milis &lt;= 480000 then milis end),0)milisTiempo
+			,isnull(convert(varchar,(avg(case when milis &lt;= 480000 then milis end)/(1000))/(60*60)) + ':' +(case when (avg(case when milis &lt;= 480000 then milis end)/(1000))/60 &gt; 10 then convert(varchar,(avg(case when milis &lt;= 480000 then milis end)/(1000))/60) else '0'+convert(varchar,(avg(case when milis &lt;= 480000 then milis end)/(1000))/60)  end )+ + ':' 
+			+(case when (avg(case when milis &lt;= 480000 then milis end)/(1000))%60 &gt; 10 then convert(varchar,(avg(case when milis &lt;= 480000 then milis end)/(1000))%60) else '0'+convert(varchar,(avg(case when milis &lt;= 480000 then milis end)/(1000))%60) end),0)promedioTiempo
+			,avg(case when milis &gt; 480000 then milis end)milisAtrasado
+			,isnull(convert(varchar,(avg(case when milis &gt; 480000 then milis end)/(1000))/(60*60)) + ':' +(case when (avg(case when milis &gt; 480000 then milis end)/(1000))/60 &gt; 10 then convert(varchar,(avg(case when milis &gt; 480000 then milis end)/(1000))/60) else '0'+convert(varchar,(avg(case when milis &gt; 480000 then milis end)/(1000))/60)  end )+ + ':' 
+			+(case when (avg(case when milis &gt; 480000 then milis end)/(1000))%60 &gt; 10 then convert(varchar,(avg(case when milis &gt; 480000 then milis end)/(1000))%60) else '0'+convert(varchar,(avg(case when milis &gt; 480000 then milis end)/(1000))%60) end),0)promedioAtrasado
+			,id_emp
+		--into #temp
+		from(
+			select 'Desayuno' Descripcion,case when DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )&lt;= 480000 then 1 else 0 end tiempo
+			,case when DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )&gt; 480000 then 1 else 0 end atrasado	
+			,DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )milis,isnull(emp,'') emp,id_emp
+			from   hcta a 
+		
+			where 
+				DATEADD(day, DATEDIFF(dd, 0,fecha_cierre), 0) between @fecha and @fechaFinal
+				and fecha_cierre &lt; CONVERT(datetime,(CONVERT(VARCHAR(15),fecha_cierre,23)  + ' ' + cast(11 as varchar(20))+':59:59')) 		
+				AND id_local in (select id_local from mlocal where id_local = @idSucursal) 
+				 or  id_local in  (select b.idLocal from relacionSucursalUsuario a join RelacionGrupoSucursal b on a.id_local = b.idGrupo 
+				 where a.id_usuario = @idUsuario ) 
+				 or (a.id_local in (select id_local from mlocal where nombre not like '%trial%' ) and @idSucursal=0 and (select rol from usuarios where id = @idUsuario)='superusuario')
+			union all
+			select 'Comida' Descripcion,case when DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )&lt;= 480000 then 1 else 0 end tiempo--,hora_bump,cast( fecha_cierre as time)
+			,case when DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )&gt; 480000 then 1 else 0 end atrasado
+			,DATEDIFF(MILLISECOND,CONVERT(VARCHAR(15),fecha_cierre,114),CONVERT(VARCHAR(15),hora_bump2,114) )milis,isnull(emp,'') emp,id_emp
+			from   hcta a
+			where 
+				DATEADD(day, DATEDIFF(dd, 0,fecha_cierre), 0) between @fecha and @fechaFinal
+				and fecha_cierre &gt; CONVERT(datetime,(CONVERT(VARCHAR(15),fecha_cierre,23)  + ' ' + cast(11+1 as varchar(20))+':59:59')) 
+				AND id_local in (select id_local from mlocal where id_local = @idSucursal) 
+				 or  id_local in  (select b.idLocal from relacionSucursalUsuario a join RelacionGrupoSucursal b on a.id_local = b.idGrupo 
+				 where a.id_usuario = @idUsuario ) 
+				 or (a.id_local in (select id_local from mlocal where nombre not like '%trial%'  and id_local &gt;= 750) and @idSucursal=0 and (select rol from usuarios where id = @idUsuario)='superusuario')
+			)t0
+		group by Descripcion,emp,id_emp
+	)t1
+	order by orden,orden2</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="idSucursal" ColumnName="" DataSourceName="" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@idSucursal" Precision="0" Scale="0" Size="4" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="fecha" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@fecha" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="fechaFinal" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@fechaFinal" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="idUsuario" ColumnName="" DataSourceName="" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@idUsuario" Precision="0" Scale="0" Size="4" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="nombre" DataSetColumn="nombre" />
+              <Mapping SourceColumn="Descripcion" DataSetColumn="Descripcion" />
+              <Mapping SourceColumn="Total" DataSetColumn="Total" />
+              <Mapping SourceColumn="Tiempo" DataSetColumn="Tiempo" />
+              <Mapping SourceColumn="Atrasado" DataSetColumn="Atrasado" />
+              <Mapping SourceColumn="promedio" DataSetColumn="promedio" />
+              <Mapping SourceColumn="milisPromedio" DataSetColumn="milisPromedio" />
+              <Mapping SourceColumn="milisTiempo" DataSetColumn="milisTiempo" />
+              <Mapping SourceColumn="promedioTiempo" DataSetColumn="promedioTiempo" />
+              <Mapping SourceColumn="milisAtrasado" DataSetColumn="milisAtrasado" />
+              <Mapping SourceColumn="promedioAtrasado" DataSetColumn="promedioAtrasado" />
+              <Mapping SourceColumn="orden" DataSetColumn="orden" />
+              <Mapping SourceColumn="orden2" DataSetColumn="orden2" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="ReportesConnectionString (Web.config)" DbObjectName="Reportes2.dbo.mlocal" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetDataBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT NULL AS Atrasado, '' AS Descripcion, NULL AS Tiempo, NULL AS Total, NULL AS milisAtrasado, NULL AS milisPromedio, NULL AS milisTiempo, nombre, - 1 AS orden, 0 AS orden2, NULL AS promedio, NULL AS promedioAtrasado, NULL AS promedioTiempo FROM mlocal UNION ALL SELECT emp, Descripcion, SUM(tiempo) + SUM(atrasado) AS Total, SUM(tiempo) AS Tiempo, SUM(atrasado) AS Atrasado, CONVERT (varchar, (AVG(milis) / 1000) / (60 * 60)) + ':' + (CASE WHEN (AVG(milis) / (1000)) / 60 &gt; 10 THEN CONVERT (varchar , (AVG(milis) / (1000)) / 60) ELSE '0' + CONVERT (varchar , (AVG(milis) / (1000)) / 60) END) + + ':' + (CASE WHEN (AVG(milis) / (1000)) % 60 &gt; 10 THEN CONVERT (varchar , (AVG(milis) / (1000)) % 60) ELSE '0' + CONVERT (varchar , (AVG(milis) / (1000)) % 60) END) AS promedio, AVG(milis) AS milisPromedio, ISNULL(AVG(CASE WHEN milis &lt;= 480000 THEN milis END), 0) AS milisTiempo, ISNULL(CONVERT (varchar, (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / 1000) / (60 * 60)) + ':' + (CASE WHEN (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) / 60 &gt; 10 THEN CONVERT (varchar , (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) / 60) ELSE '0' + CONVERT (varchar , (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) / 60) END) + + ':' + (CASE WHEN (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) % 60 &gt; 10 THEN CONVERT (varchar , (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) % 60) ELSE '0' + CONVERT (varchar , (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) % 60) END), 0) AS promedioTiempo, AVG(CASE WHEN milis &gt; 480000 THEN milis END) AS milisAtrasado, ISNULL(CONVERT (varchar, (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / 1000) / (60 * 60)) + ':' + (CASE WHEN (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) / 60 &gt; 10 THEN CONVERT (varchar , (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) / 60) ELSE '0' + CONVERT (varchar , (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) / 60) END) + + ':' + (CASE WHEN (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) % 60 &gt; 10 THEN CONVERT (varchar , (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) % 60) ELSE '0' + CONVERT (varchar , (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) % 60) END), 0) AS promedioAtrasado, id_emp AS orden, CASE WHEN Descripcion = 'Desayuno' THEN 1 ELSE 2 END AS Expr1 FROM (SELECT 'Desayuno' AS Descripcion, CASE WHEN DATEDIFF(MILLISECOND , CONVERT (VARCHAR(8) , fecha_cierre , 108) , hora_bump) &lt;= 480000 THEN 1 ELSE 0 END AS tiempo, CASE WHEN DATEDIFF(MILLISECOND , CONVERT (VARCHAR(8) , fecha_cierre , 108) , hora_bump) &gt; 480000 THEN 1 ELSE 0 END AS atrasado, DATEDIFF(MILLISECOND, CONVERT (VARCHAR(8), fecha_cierre, 108), hora_bump) AS milis, ISNULL(emp, '') AS emp, id_emp FROM hcta AS a WHERE (DATEADD(day, DATEDIFF(dd, 0, fecha_cierre), 0) BETWEEN @fecha AND @fechaFinal) AND (fecha_cierre &lt; CONVERT (datetime, CAST(DATEADD(day, DATEDIFF(dd, 0, fecha_cierre), 0) AS varchar(20)) + ' ' + CAST(11 AS varchar(20)) + ':59:59')) UNION ALL SELECT 'Comida' AS Descripcion, CASE WHEN DATEDIFF(MILLISECOND , CONVERT (VARCHAR(8) , fecha_cierre , 108) , hora_bump) &lt;= 480000 THEN 1 ELSE 0 END AS tiempo, CASE WHEN DATEDIFF(MILLISECOND , CONVERT (VARCHAR(8) , fecha_cierre , 108) , hora_bump) &gt; 480000 THEN 1 ELSE 0 END AS atrasado, DATEDIFF(MILLISECOND, CONVERT (VARCHAR(8), fecha_cierre, 108), hora_bump) AS milis, ISNULL(emp, '') AS emp, id_emp FROM hcta WHERE (DATEADD(day, DATEDIFF(dd, 0, fecha_cierre), 0) BETWEEN @fecha AND @fechaFinal) AND (fecha_cierre &gt; CONVERT (datetime, CAST(DATEADD(day, DATEDIFF(dd, 0, fecha_cierre), 0) AS varchar(20)) + ' ' + CAST(11 + 1 AS varchar(20)) + ':59:59'))) AS t0 GROUP BY Descripcion, emp, id_emp UNION ALL SELECT emp, 'Total' AS Expr1, SUM(Total) AS Expr2, SUM(Tiempo) AS Expr3, SUM(Atrasado) AS Expr4, CONVERT (varchar, (AVG(milisPromedio) / 1000) / (60 * 60)) + ':' + (CASE WHEN (AVG(milisPromedio) / (1000)) / 60 &gt; 10 THEN CONVERT (varchar , (AVG(milisPromedio) / (1000)) / 60) ELSE '0' + CONVERT (varchar , (AVG(milisPromedio) / (1000)) / 60) END) + + ':' + (CASE WHEN (AVG(milisPromedio) / (1000)) % 60 &gt; 10 THEN CONVERT (varchar , (AVG(milisPromedio) / (1000)) % 60) ELSE '0' + CONVERT (varchar , (AVG(milisPromedio) / (1000)) % 60) END) AS promedio, NULL AS Expr5, NULL AS Expr6, CONVERT (varchar, (AVG(milisTiempo) / 1000) / (60 * 60)) + ':' + (CASE WHEN (AVG(milisTiempo) / (1000)) / 60 &gt; 10 THEN CONVERT (varchar , (AVG(milisTiempo) / (1000)) / 60) ELSE '0' + CONVERT (varchar , (AVG(milisTiempo) / (1000)) / 60) END) + + ':' + (CASE WHEN (AVG(milisTiempo) / (1000)) % 60 &gt; 10 THEN CONVERT (varchar , (AVG(milisTiempo) / (1000)) % 60) ELSE '0' + CONVERT (varchar , (AVG(milisTiempo) / (1000)) % 60) END) AS promedio, NULL AS Expr7, CONVERT (varchar, (AVG(milisAtrasado) / 1000) / (60 * 60)) + ':' + (CASE WHEN (AVG(milisAtrasado) / (1000)) / 60 &gt; 10 THEN CONVERT (varchar , (AVG(milisAtrasado) / (1000)) / 60) ELSE '0' + CONVERT (varchar , (AVG(milisAtrasado) / (1000)) / 60) END) + + ':' + (CASE WHEN (AVG(milisAtrasado) / (1000)) % 60 &gt; 10 THEN CONVERT (varchar , (AVG(milisAtrasado) / (1000)) % 60) ELSE '0' + CONVERT (varchar , (AVG(milisAtrasado) / (1000)) % 60) END) AS promedio, id_emp, 3 AS orden2 FROM (SELECT emp, Descripcion, SUM(tiempo) + SUM(atrasado) AS Total, SUM(tiempo) AS Tiempo, SUM(atrasado) AS Atrasado, CONVERT (varchar, (AVG(milis) / 1000) / (60 * 60)) + ':' + (CASE WHEN (AVG(milis) / (1000)) / 60 &gt; 10 THEN CONVERT (varchar , (AVG(milis) / (1000)) / 60) ELSE '0' + CONVERT (varchar , (AVG(milis) / (1000)) / 60) END) + + ':' + (CASE WHEN (AVG(milis) / (1000)) % 60 &gt; 10 THEN CONVERT (varchar , (AVG(milis) / (1000)) % 60) ELSE '0' + CONVERT (varchar , (AVG(milis) / (1000)) % 60) END) AS promedio, AVG(milis) AS milisPromedio, ISNULL(AVG(CASE WHEN milis &lt;= 480000 THEN milis END), 0) AS milisTiempo, ISNULL(CONVERT (varchar, (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / 1000) / (60 * 60)) + ':' + (CASE WHEN (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) / 60 &gt; 10 THEN CONVERT (varchar , (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) / 60) ELSE '0' + CONVERT (varchar , (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) / 60) END) + + ':' + (CASE WHEN (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) % 60 &gt; 10 THEN CONVERT (varchar , (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) % 60) ELSE '0' + CONVERT (varchar , (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) % 60) END), 0) AS promedioTiempo, AVG(CASE WHEN milis &gt; 480000 THEN milis END) AS milisAtrasado, ISNULL(CONVERT (varchar, (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / 1000) / (60 * 60)) + ':' + (CASE WHEN (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) / 60 &gt; 10 THEN CONVERT (varchar , (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) / 60) ELSE '0' + CONVERT (varchar , (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) / 60) END) + + ':' + (CASE WHEN (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) % 60 &gt; 10 THEN CONVERT (varchar , (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) % 60) ELSE '0' + CONVERT (varchar , (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) % 60) END), 0) AS promedioAtrasado, id_emp FROM (SELECT 'Desayuno' AS Descripcion, CASE WHEN DATEDIFF(MILLISECOND , CONVERT (VARCHAR(8) , fecha_cierre , 108) , hora_bump) &lt;= 480000 THEN 1 ELSE 0 END AS tiempo, CASE WHEN DATEDIFF(MILLISECOND , CONVERT (VARCHAR(8) , fecha_cierre , 108) , hora_bump) &gt; 480000 THEN 1 ELSE 0 END AS atrasado, DATEDIFF(MILLISECOND, CONVERT (VARCHAR(8), fecha_cierre, 108), hora_bump) AS milis, ISNULL(emp, '') AS emp, id_emp FROM hcta AS a WHERE (DATEADD(day, DATEDIFF(dd, 0, fecha_cierre), 0) BETWEEN @fecha AND @fechaFinal) AND (fecha_cierre &lt; CONVERT (datetime, CAST(DATEADD(day, DATEDIFF(dd, 0, fecha_cierre), 0) AS varchar(20)) + ' ' + CAST(11 AS varchar(20)) + ':59:59')) UNION ALL SELECT 'Comida' AS Descripcion, CASE WHEN DATEDIFF(MILLISECOND , CONVERT (VARCHAR(8) , fecha_cierre , 108) , hora_bump) &lt;= 480000 THEN 1 ELSE 0 END AS tiempo, CASE WHEN DATEDIFF(MILLISECOND , CONVERT (VARCHAR(8) , fecha_cierre , 108) , hora_bump) &gt; 480000 THEN 1 ELSE 0 END AS atrasado, DATEDIFF(MILLISECOND, CONVERT (VARCHAR(8), fecha_cierre, 108), hora_bump) AS milis, ISNULL(emp, '') AS emp, id_emp FROM hcta AS hcta_2 WHERE (DATEADD(day, DATEDIFF(dd, 0, fecha_cierre), 0) BETWEEN @fecha AND @fechaFinal) AND (fecha_cierre &gt; CONVERT (datetime, CAST(DATEADD(day, DATEDIFF(dd, 0, fecha_cierre), 0) AS varchar(20)) + ' ' + CAST(11 + 1 AS varchar(20)) + ':59:59'))) AS t0_2 GROUP BY Descripcion, emp, id_emp) AS t1 GROUP BY emp, id_emp UNION ALL SELECT 'Gran Total' AS Expr1, '' AS Expr2, SUM(Total) AS Expr3, SUM(Tiempo) AS Expr4, SUM(Atrasado) AS Expr5, CONVERT (varchar, (AVG(milisPromedio) / 1000) / (60 * 60)) + ':' + (CASE WHEN (AVG(milisPromedio) / (1000)) / 60 &gt; 10 THEN CONVERT (varchar , (AVG(milisPromedio) / (1000)) / 60) ELSE '0' + CONVERT (varchar , (AVG(milisPromedio) / (1000)) / 60) END) + + ':' + (CASE WHEN (AVG(milisPromedio) / (1000)) % 60 &gt; 10 THEN CONVERT (varchar , (AVG(milisPromedio) / (1000)) % 60) ELSE '0' + CONVERT (varchar , (AVG(milisPromedio) / (1000)) % 60) END) AS promedio, NULL AS Expr6, NULL AS Expr7, CONVERT (varchar, (AVG(milisTiempo) / 1000) / (60 * 60)) + ':' + (CASE WHEN (AVG(milisTiempo) / (1000)) / 60 &gt; 10 THEN CONVERT (varchar , (AVG(milisTiempo) / (1000)) / 60) ELSE '0' + CONVERT (varchar , (AVG(milisTiempo) / (1000)) / 60) END) + + ':' + (CASE WHEN (AVG(milisTiempo) / (1000)) % 60 &gt; 10 THEN CONVERT (varchar , (AVG(milisTiempo) / (1000)) % 60) ELSE '0' + CONVERT (varchar , (AVG(milisTiempo) / (1000)) % 60) END) AS promedio, NULL AS Expr8, CONVERT (varchar, (AVG(milisAtrasado) / 1000) / (60 * 60)) + ':' + (CASE WHEN (AVG(milisAtrasado) / (1000)) / 60 &gt; 10 THEN CONVERT (varchar , (AVG(milisAtrasado) / (1000)) / 60) ELSE '0' + CONVERT (varchar , (AVG(milisAtrasado) / (1000)) / 60) END) + + ':' + (CASE WHEN (AVG(milisAtrasado) / (1000)) % 60 &gt; 10 THEN CONVERT (varchar , (AVG(milisAtrasado) / (1000)) % 60) ELSE '0' + CONVERT (varchar , (AVG(milisAtrasado) / (1000)) % 60) END) AS promedio, (SELECT MAX(id_resp) AS Expr1 FROM hresp AS aa) + 1 AS Expr9, (SELECT MAX(id_resp) AS Expr1 FROM hresp AS aa) + 1 AS orden2 FROM (SELECT emp, Descripcion, SUM(tiempo) + SUM(atrasado) AS Total, SUM(tiempo) AS Tiempo, SUM(atrasado) AS Atrasado, CONVERT (varchar, (AVG(milis) / 1000) / (60 * 60)) + ':' + (CASE WHEN (AVG(milis) / (1000)) / 60 &gt; 10 THEN CONVERT (varchar , (AVG(milis) / (1000)) / 60) ELSE '0' + CONVERT (varchar , (AVG(milis) / (1000)) / 60) END) + + ':' + (CASE WHEN (AVG(milis) / (1000)) % 60 &gt; 10 THEN CONVERT (varchar , (AVG(milis) / (1000)) % 60) ELSE '0' + CONVERT (varchar , (AVG(milis) / (1000)) % 60) END) AS promedio, AVG(milis) AS milisPromedio, ISNULL(AVG(CASE WHEN milis &lt;= 480000 THEN milis END), 0) AS milisTiempo, ISNULL(CONVERT (varchar, (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / 1000) / (60 * 60)) + ':' + (CASE WHEN (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) / 60 &gt; 10 THEN CONVERT (varchar , (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) / 60) ELSE '0' + CONVERT (varchar , (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) / 60) END) + + ':' + (CASE WHEN (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) % 60 &gt; 10 THEN CONVERT (varchar , (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) % 60) ELSE '0' + CONVERT (varchar , (AVG(CASE WHEN milis &lt;= 480000 THEN milis END) / (1000)) % 60) END), 0) AS promedioTiempo, AVG(CASE WHEN milis &gt; 480000 THEN milis END) AS milisAtrasado, ISNULL(CONVERT (varchar, (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / 1000) / (60 * 60)) + ':' + (CASE WHEN (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) / 60 &gt; 10 THEN CONVERT (varchar , (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) / 60) ELSE '0' + CONVERT (varchar , (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) / 60) END) + + ':' + (CASE WHEN (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) % 60 &gt; 10 THEN CONVERT (varchar , (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) % 60) ELSE '0' + CONVERT (varchar , (AVG(CASE WHEN milis &gt; 480000 THEN milis END) / (1000)) % 60) END), 0) AS promedioAtrasado, id_emp FROM (SELECT 'Desayuno' AS Descripcion, CASE WHEN DATEDIFF(MILLISECOND , CONVERT (VARCHAR(8) , fecha_cierre , 108) , hora_bump) &lt;= 480000 THEN 1 ELSE 0 END AS tiempo, CASE WHEN DATEDIFF(MILLISECOND , CONVERT (VARCHAR(8) , fecha_cierre , 108) , hora_bump) &gt; 480000 THEN 1 ELSE 0 END AS atrasado, DATEDIFF(MILLISECOND, CONVERT (VARCHAR(8), fecha_cierre, 108), hora_bump) AS milis, ISNULL(emp, '') AS emp, id_emp FROM hcta AS a WHERE (DATEADD(day, DATEDIFF(dd, 0, fecha_cierre), 0) BETWEEN @fecha AND @fechaFinal) AND (fecha_cierre &lt; CONVERT (datetime, CAST(DATEADD(day, DATEDIFF(dd, 0, fecha_cierre), 0) AS varchar(20)) + ' ' + CAST(11 AS varchar(20)) + ':59:59')) UNION ALL SELECT 'Comida' AS Descripcion, CASE WHEN DATEDIFF(MILLISECOND , CONVERT (VARCHAR(8) , fecha_cierre , 108) , hora_bump) &lt;= 480000 THEN 1 ELSE 0 END AS tiempo, CASE WHEN DATEDIFF(MILLISECOND , CONVERT (VARCHAR(8) , fecha_cierre , 108) , hora_bump) &gt; 480000 THEN 1 ELSE 0 END AS atrasado, DATEDIFF(MILLISECOND, CONVERT (VARCHAR(8), fecha_cierre, 108), hora_bump) AS milis, ISNULL(emp, '') AS emp, id_emp FROM hcta AS hcta_1 WHERE (DATEADD(day, DATEDIFF(dd, 0, fecha_cierre), 0) BETWEEN @fecha AND @fechaFinal) AND (fecha_cierre &gt; CONVERT (datetime, CAST(DATEADD(day, DATEDIFF(dd, 0, fecha_cierre), 0) AS varchar(20)) + ' ' + CAST(11 + 1 AS varchar(20)) + ':59:59')) AND (id_local IN (SELECT id_local FROM relacionSucursalUsuario WHERE (id_usuario = @idUsuario)))) AS t0_1 GROUP BY Descripcion, emp, id_emp) AS t1_1</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="fecha" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@fecha" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="fechaFinal" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="DateTime" Direction="Input" ParameterName="@fechaFinal" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="idUsuario" ColumnName="" DataSourceName="" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@idUsuario" Precision="0" Scale="0" Size="4" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSetReporteVDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="DataSetReporteVDS" msprop:Generator_UserDSName="DataSetReporteVDS">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="mlocal" msprop:Generator_TableClassName="mlocalDataTable" msprop:Generator_TableVarName="tablemlocal" msprop:Generator_RowChangedName="mlocalRowChanged" msprop:Generator_TablePropName="mlocal" msprop:Generator_RowDeletingName="mlocalRowDeleting" msprop:Generator_RowChangingName="mlocalRowChanging" msprop:Generator_RowEvHandlerName="mlocalRowChangeEventHandler" msprop:Generator_RowDeletedName="mlocalRowDeleted" msprop:Generator_RowClassName="mlocalRow" msprop:Generator_UserTableName="mlocal" msprop:Generator_RowEvArgName="mlocalRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nombre" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnnombre" msprop:Generator_ColumnPropNameInRow="nombre" msprop:Generator_ColumnPropNameInTable="nombreColumn" msprop:Generator_UserColumnName="nombre" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Descripcion" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnDescripcion" msprop:Generator_ColumnPropNameInRow="Descripcion" msprop:Generator_ColumnPropNameInTable="DescripcionColumn" msprop:Generator_UserColumnName="Descripcion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Total" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_UserColumnName="Total" type="xs:int" minOccurs="0" />
+              <xs:element name="Tiempo" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTiempo" msprop:Generator_ColumnPropNameInRow="Tiempo" msprop:Generator_ColumnPropNameInTable="TiempoColumn" msprop:Generator_UserColumnName="Tiempo" type="xs:int" minOccurs="0" />
+              <xs:element name="Atrasado" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnAtrasado" msprop:Generator_ColumnPropNameInRow="Atrasado" msprop:Generator_ColumnPropNameInTable="AtrasadoColumn" msprop:Generator_UserColumnName="Atrasado" type="xs:int" minOccurs="0" />
+              <xs:element name="promedio" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnpromedio" msprop:Generator_ColumnPropNameInRow="promedio" msprop:Generator_ColumnPropNameInTable="promedioColumn" msprop:Generator_UserColumnName="promedio" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="94" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="milisPromedio" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnmilisPromedio" msprop:Generator_ColumnPropNameInRow="milisPromedio" msprop:Generator_ColumnPropNameInTable="milisPromedioColumn" msprop:Generator_UserColumnName="milisPromedio" type="xs:int" minOccurs="0" />
+              <xs:element name="milisTiempo" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnmilisTiempo" msprop:Generator_ColumnPropNameInRow="milisTiempo" msprop:Generator_ColumnPropNameInTable="milisTiempoColumn" msprop:Generator_UserColumnName="milisTiempo" type="xs:int" minOccurs="0" />
+              <xs:element name="promedioTiempo" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnpromedioTiempo" msprop:Generator_ColumnPropNameInRow="promedioTiempo" msprop:Generator_ColumnPropNameInTable="promedioTiempoColumn" msprop:Generator_UserColumnName="promedioTiempo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="94" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="milisAtrasado" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnmilisAtrasado" msprop:Generator_ColumnPropNameInRow="milisAtrasado" msprop:Generator_ColumnPropNameInTable="milisAtrasadoColumn" msprop:Generator_UserColumnName="milisAtrasado" type="xs:int" minOccurs="0" />
+              <xs:element name="promedioAtrasado" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnpromedioAtrasado" msprop:Generator_ColumnPropNameInRow="promedioAtrasado" msprop:Generator_ColumnPropNameInTable="promedioAtrasadoColumn" msprop:Generator_UserColumnName="promedioAtrasado" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="94" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="orden" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnorden" msprop:Generator_ColumnPropNameInRow="orden" msprop:Generator_ColumnPropNameInTable="ordenColumn" msprop:Generator_UserColumnName="orden" type="xs:int" minOccurs="0" />
+              <xs:element name="orden2" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnorden2" msprop:Generator_ColumnPropNameInRow="orden2" msprop:Generator_ColumnPropNameInTable="orden2Column" msprop:Generator_UserColumnName="orden2" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
